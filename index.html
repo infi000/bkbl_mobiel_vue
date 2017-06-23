@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta content="email=no" name="format-detection" />
+    <meta name="apple-touch-fullscreen" content="YES">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link href="./css/lib/weui.min.css" rel="stylesheet">
+    <link href="./css/lib/swiper.min.css" rel="stylesheet">
+    <link href="./css/font/iconfont.css" rel="stylesheet">
+    <link href="./css/main.css" rel="stylesheet">
+    <link href="./css/lib/animate.css" rel="stylesheet">
+    <title></title>
+    <script src="./js/demo.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <component-wrap>
+            <component-hd slot="page_hd" :hdmodel='demo.model' :hdimg='demo.image' :hdsource="demo.source"></component-hd>
+            <component-bn slot="page_bn"></component-bn>
+            <component-bar slot="main_navbar" :barhost='demo.subject' :barwonder='demo.special' :barstyle='barStyle'></component-bar>
+            <component-chat slot="chat_box" :cbstyle='barStyle'></component-chat>
+        </component-wrap>
+    </div>
+</body>
+<script src="./js/lib/jquery.min.js"></script>
+<script src="./js/lib/swiper.min.js"></script>
+<script src="./js/lib/vue.js"></script>
+<script src="./js/lib/vue-router.js"></script>
+<!--  生产环境
+<script src="/build/component.js"></script>
+<script src="/build/index.js"></script> 
+-->
+<!-- 开发环境 -->
+<script src="./js/component/hd.js"></script>
+<script src="./js/component/bn.js"></script>
+<script src="./js/component/bar.js"></script>
+<script src="./js/component/cb.js"></script>
+<script src="./js/index.js"></script>
+<!-- 开发环境  end -->
+</html>

@@ -26,6 +26,7 @@
             <component-bar slot="main_navbar" :barhost='demo.subject' :barwonder='demo.special' :barstyle='barStyle'></component-bar>
             <component-chat slot="chat_box" :cbstyle='barStyle'></component-chat>
         </component-wrap>
+         <router-link to="/wp">Go to Foo</router-link><router-view></router-view>
     </div>
 </body>
 <script src="./js/lib/jquery.min.js"></script>
@@ -37,10 +38,12 @@
 <script src="/build/index.js"></script> 
 -->
 <!-- 开发环境 -->
+<script src="./js/component/wp.js"></script>
 <script src="./js/component/hd.js"></script>
 <script src="./js/component/bn.js"></script>
 <script src="./js/component/bar.js"></script>
 <script src="./js/component/cb.js"></script>
+<script src="./js/router.js"></script>
 <script src="./js/index.js"></script>
 <!-- 开发环境  end -->
 </html>

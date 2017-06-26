@@ -6,22 +6,23 @@
  */
 
 'use strict';
+
 Vue.component("component-wrap", {
     props: [""],
     template: '<div class="wrap">\
-				<div class="page">\
-					<slot name="page_hd"></slot>\
-					<div class="page_bd">\
-						<slot name="page_bn"></slot>\
-						<div class="weui-tab">\
-							<slot name="main_navbar"></slot>\
-							<div class="weui-tab__panel showBox" id="container">\
-							<slot name="chat_box"></slot>\
-							</div>\
-						</div>\
-					</div>\
-				</div>\
-			  </div>',
+                <div class="page">\
+                    <slot name="page_hd"></slot>\
+                    <div class="page_bd">\
+                        <slot name="page_bn"></slot>\
+                        <div class="weui-tab">\
+                            <slot name="main_navbar"></slot>\
+                            <div class="weui-tab__panel showBox" id="container">\
+                            <slot name="chat_box"></slot>\
+                            </div>\
+                        </div>\
+                    </div>\
+                </div>\
+              </div>',
     data: function() {
         return {};
     }
@@ -30,23 +31,34 @@ Vue.component("component-wrap", {
 var app = new Vue({
     el: "#app",
     data: {
-    	demo:demo.data1,
-
+        demo: demo.data1,
+        userInfo: demo.userInfo,
+        changebarStyle: ""
     },
-    computed:{
-    	barStyle:function(){
-    		var h=this.demo.subject,
-    			w=this.demo.special;
-    			
-    		if(h==1){
-    		return "host"
-    		};
-    		if(h!=1&&w==1){
-    			return "wonder"
-    		};
-    		if(h!=1&&w!==1){
-    			return "chat"
-    		}
-    	}
+    computed: {
+        barStyle: function() {
+            var h = this.demo.subject,
+                w = this.demo.special,
+                _ = this.changebarStyle;
+            if (_) {
+                return _
+            }
+            if (h == 1) {
+                return "host"
+            };
+            if (h != 1 && w == 1) {
+                return "wonder"
+            };
+            if (h != 1 && w !== 1) {
+                return "chat"
+            }
+        }
+    },
+    methods: {
+        showChat: function(e) {
+            this.changebarStyle = e;
+        },
+
+
     }
 })

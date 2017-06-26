@@ -54,30 +54,9 @@ var app = new Vue({
             }
         }
     },
-<<<<<<< HEAD
     methods: {
         showChat: function(e) {
             this.changebarStyle = e;
-        },
-
-
-=======
+        }},
     router,
-    computed:{
-    	barStyle:function(){
-    		var h=this.demo.subject,
-    			w=this.demo.special;
-    			
-    		if(h==1){
-    		return "host"
-    		};
-    		if(h!=1&&w==1){
-    			return "wonder"
-    		};
-    		if(h!=1&&w!==1){
-    			return "chat"
-    		}
-    	}
->>>>>>> b2ef4ae2a0f3542941a52c02845add45caca0bff
-    }
 })

@@ -29,8 +29,8 @@
                 <component-cbwonder v-if="barStyle=='wonder'" :uid="userInfo.uid"></component-cbwonder>
                 <component-cbchat v-if="barStyle=='chat'" :uid="userInfo.uid"></component-cbchat>
             </template>
+            <widget-speak slot="speak" v-if="barStyle=='chat'" :type="true"></widget-speak>
         </component-wrap>
-        <router-link to="/wp">Go to Foo</router-link>
         <router-view></router-view>
     </div>
 </body>
@@ -48,6 +48,7 @@
 <script src="./js/widget/tools.js"></script>
 <script src="./js/widget/cl.js"></script>
 <script src="./js/widget/wl.js"></script>
+<script src="./js/component/sp.js"></script>
 <script src="./js/component/wp.js"></script>
 <script src="./js/component/hd.js"></script>
 <script src="./js/component/bn.js"></script>

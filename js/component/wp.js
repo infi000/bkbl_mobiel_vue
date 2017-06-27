@@ -2,8 +2,8 @@
 wonderPage
 */
 
-Vue.component("component-wonderpage", {
-    template: '<div class="page"  id="wonderBd">\
+Vue.component('component-wonderpage', {
+  template: '<div class="page"  id="wonderBd">\
                     <div class="page__bd">\
                             <div id="wonderVideo" class="viewType"><img :src="info.image" onerror="imgError(this,\'./static/nopic2.jpg\')" alt="" style="width:100%" >\
                             <span class="btn_playView" :dataType="info.video"><i class="iconfont icon-bofang1"></i></span></div>\
@@ -24,34 +24,33 @@ Vue.component("component-wonderpage", {
                                     </section>\
                             </article>\
                         </div>\
+                        <widget-speak :type="true"></widget-speak>\
                     </div>',
-    data: function() {
-        return { info: "" }
-    },
-    methods: {},
-    mounted: function() {
-        console.log(this.$route.query);
-
-        var that = this;
-        var id = this.$route.query.id;
+  data: function() {
+    return { info: '' };
+  },
+  methods: {},
+  mounted: function() {
+    var that = this;
+    var id = this.$route.query.id;
         // var url = 'http://www.xiaomaizhibo.com/cloudtest/?m=7259&id=10174&talk_id=8cbcb492db658e619d838af310da6ef6&xopenid=oXhPVvmTMDsrjcD0eb9yltn9N4Z4&author=qTBwlkMlUOyMK-FWO6zxzLmgpTOeDkEoxc-F5-4m3O1SdbujJjvGFj0iuKlqVJB54b-9RZmcxcQ-Spr1jqMnVw';
-        var app = $.ajax({
-            url: URL_dev,
-            data: {
-                m: params.getWonder,
-                id: id,
-                talk_id: "17ef7347ed49cce3680d93de46200ff4",
-                xopenid: "oXhPVvmTMDsrjcD0eb9yltn9N4Z4",
-                author: "Fw6RLKFKLAbQjvj3O3QVucIKob-NDtyJ4giwFWgHP_tsWgTMgaFYRSehVI0vCAnoVIedN4upeh9SfnitMp2VIw",
-            },
-            dataType: "JSONP",
-            success: function(e) {
-                if (e.status == 1) {
-                    that.info = e.data;
-                    console.log(that.info)
-                }
+    var app = $.ajax({
+      url: URL_dev,
+      data: {
+        m: params.getWonder,
+        id: id,
+        talk_id: '17ef7347ed49cce3680d93de46200ff4',
+        xopenid: 'oXhPVvmTMDsrjcD0eb9yltn9N4Z4',
+        author: 'Fw6RLKFKLAbQjvj3O3QVucIKob-NDtyJ4giwFWgHP_tsWgTMgaFYRSehVI0vCAnoVIedN4upeh9SfnitMp2VIw',
+      },
+      dataType: 'JSONP',
+      success: function(e) {
+        if (e.status == 1) {
+          that.info = e.data;
+          console.log(that.info);
+        }
 
-            }
-        });
-    },
-})
+      },
+    });
+  },
+});

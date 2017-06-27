@@ -2,11 +2,11 @@
 
 // 1. 定义（路由）组件。
 // 可以从其他文件 import 进来
-var Foo = { template: '<div>foo</div>' }
-var Bar = { template: '<div>bar</div>' }
+var Foo = { template: '<div>foo</div>' };
+var Bar = { template: '<div>bar</div>' };
 
-var wp={template:"<component-wonderpage></component-wonderpage>"};
-var sp={template:"<component-speakpage></component-speakpage>"};
+var wp={template:'<component-wonderpage></component-wonderpage>'};
+var sp={template:'<component-speakpage></component-speakpage>'};
 
 // 2. 定义路由
 // 每个路由应该映射一个组件。 其中"component" 可以是
@@ -18,13 +18,13 @@ var routes = [
   { path: '/bar', component: Bar },
   { path: '/wp', component: wp },
   { path: '/sp', component: sp },
-]
+];
 
 // 3. 创建 router 实例，然后传 `routes` 配置
 // 你还可以传别的配置参数, 不过先这么简单着吧。
 var router = new VueRouter({
-  routes // （缩写）相当于 routes: routes
-})
+  routes, // （缩写）相当于 routes: routes
+});
 
 // 4. 创建和挂载根实例。
 // 记得要通过 router 配置参数注入路由，

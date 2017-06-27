@@ -1,6 +1,6 @@
 // chatLine
-Vue.component("widget-cl", {
-    props: ["info", "uid"],
+Vue.component('widget-cl', {
+    props: ['info', 'uid'],
     template: '<div class="weui-media-box weui-media-box_appmsg weui-media-box_appmsg_1" :dataType="info">\
                                 <div class="weui-media-box__hd">\
                                     <img class="weui-media-box__thumb" :src="info.head" alt="">\
@@ -17,5 +17,5 @@ Vue.component("widget-cl", {
                                     <widget-retort></widget-retort>\
                                     <widget-repo></widget-repo>\
                                 </div>\
-                            </div>'
-})
+                            </div>',
+});

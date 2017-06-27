@@ -13,13 +13,13 @@
 
 function assert (condition, message) {
   if (!condition) {
-    throw new Error(("[vue-router] " + message))
+    throw new Error(('[vue-router] ' + message));
   }
 }
 
 function warn (condition, message) {
-  if ("development" !== 'production' && !condition) {
-    typeof console !== 'undefined' && console.warn(("[vue-router] " + message));
+  if ('development' !== 'production' && !condition) {
+    typeof console !== 'undefined' && console.warn(('[vue-router] ' + message));
   }
 }
 
@@ -29,8 +29,8 @@ var View = {
   props: {
     name: {
       type: String,
-      default: 'default'
-    }
+      default: 'default',
+    },
   },
   render: function render (_, ref) {
     var props = ref.props;
@@ -64,14 +64,14 @@ var View = {
 
     // render previous view if the tree is inactive and kept-alive
     if (inactive) {
-      return h(cache[name], data, children)
+      return h(cache[name], data, children);
     }
 
     var matched = route.matched[depth];
     // render empty node if no matched route
     if (!matched) {
       cache[name] = null;
-      return h()
+      return h();
     }
 
     var component = cache[name] = matched.components[name];
@@ -98,26 +98,26 @@ var View = {
     // resolve props
     data.props = resolveProps(route, matched.props && matched.props[name]);
 
-    return h(component, data, children)
-  }
+    return h(component, data, children);
+  },
 };
 
 function resolveProps (route, config) {
   switch (typeof config) {
     case 'undefined':
-      return
+      return;
     case 'object':
-      return config
+      return config;
     case 'function':
-      return config(route)
+      return config(route);
     case 'boolean':
-      return config ? route.params : undefined
+      return config ? route.params : undefined;
     default:
       {
         warn(
           false,
-          "props in \"" + (route.path) + "\" is a " + (typeof config) + ", " +
-          "expecting an object, function or boolean."
+          'props in "' + (route.path) + '" is a ' + (typeof config) + ', ' +
+          'expecting an object, function or boolean.'
         );
       }
   }
@@ -150,14 +150,14 @@ function resolveQuery (
   try {
     parsedQuery = parse(query || '');
   } catch (e) {
-    "development" !== 'production' && warn(false, e.message);
+    'development' !== 'production' && warn(false, e.message);
     parsedQuery = {};
   }
   for (var key in extraQuery) {
     var val = extraQuery[key];
     parsedQuery[key] = Array.isArray(val) ? val.slice() : val;
   }
-  return parsedQuery
+  return parsedQuery;
 }
 
 function parseQuery (query) {
@@ -166,7 +166,7 @@ function parseQuery (query) {
   query = query.trim().replace(/^(\?|#|&)/, '');
 
   if (!query) {
-    return res
+    return res;
   }
 
   query.split('&').forEach(function (param) {
@@ -185,7 +185,7 @@ function parseQuery (query) {
     }
   });
 
-  return res
+  return res;
 }
 
 function stringifyQuery (obj) {
@@ -193,18 +193,18 @@ function stringifyQuery (obj) {
     var val = obj[key];
 
     if (val === undefined) {
-      return ''
+      return '';
     }
 
     if (val === null) {
-      return encode(key)
+      return encode(key);
     }
 
     if (Array.isArray(val)) {
       var result = [];
       val.forEach(function (val2) {
         if (val2 === undefined) {
-          return
+          return;
         }
         if (val2 === null) {
           result.push(encode(key));
@@ -212,12 +212,12 @@ function stringifyQuery (obj) {
           result.push(encode(key) + '=' + encode(val2));
         }
       });
-      return result.join('&')
+      return result.join('&');
     }
 
-    return encode(key) + '=' + encode(val)
+    return encode(key) + '=' + encode(val);
   }).filter(function (x) { return x.length > 0; }).join('&') : null;
-  return res ? ("?" + res) : ''
+  return res ? ('?' + res) : '';
 }
 
 /*  */
@@ -240,17 +240,17 @@ function createRoute (
     query: location.query || {},
     params: location.params || {},
     fullPath: getFullPath(location, stringifyQuery$$1),
-    matched: record ? formatMatch(record) : []
+    matched: record ? formatMatch(record) : [],
   };
   if (redirectedFrom) {
     route.redirectedFrom = getFullPath(redirectedFrom, stringifyQuery$$1);
   }
-  return Object.freeze(route)
+  return Object.freeze(route);
 }
 
 // the starting route that represents the initial state
 var START = createRoute(null, {
-  path: '/'
+  path: '/',
 });
 
 function formatMatch (record) {
@@ -259,7 +259,7 @@ function formatMatch (record) {
     res.unshift(record);
     record = record.parent;
   }
-  return res
+  return res;
 }
 
 function getFullPath (
@@ -271,29 +271,29 @@ function getFullPath (
   var hash = ref.hash; if ( hash === void 0 ) hash = '';
 
   var stringify = _stringifyQuery || stringifyQuery;
-  return (path || '/') + stringify(query) + hash
+  return (path || '/') + stringify(query) + hash;
 }
 
 function isSameRoute (a, b) {
   if (b === START) {
-    return a === b
+    return a === b;
   } else if (!b) {
-    return false
+    return false;
   } else if (a.path && b.path) {
     return (
       a.path.replace(trailingSlashRE, '') === b.path.replace(trailingSlashRE, '') &&
       a.hash === b.hash &&
       isObjectEqual(a.query, b.query)
-    )
+    );
   } else if (a.name && b.name) {
     return (
       a.name === b.name &&
       a.hash === b.hash &&
       isObjectEqual(a.query, b.query) &&
       isObjectEqual(a.params, b.params)
-    )
+    );
   } else {
-    return false
+    return false;
   }
 }
 
@@ -304,17 +304,17 @@ function isObjectEqual (a, b) {
   var aKeys = Object.keys(a);
   var bKeys = Object.keys(b);
   if (aKeys.length !== bKeys.length) {
-    return false
+    return false;
   }
   return aKeys.every(function (key) {
     var aVal = a[key];
     var bVal = b[key];
     // check nested equality
     if (typeof aVal === 'object' && typeof bVal === 'object') {
-      return isObjectEqual(aVal, bVal)
+      return isObjectEqual(aVal, bVal);
     }
-    return String(aVal) === String(bVal)
-  })
+    return String(aVal) === String(bVal);
+  });
 }
 
 function isIncludedRoute (current, target) {
@@ -324,16 +324,16 @@ function isIncludedRoute (current, target) {
     ) === 0 &&
     (!target.hash || current.hash === target.hash) &&
     queryIncludes(current.query, target.query)
-  )
+  );
 }
 
 function queryIncludes (current, target) {
   for (var key in target) {
     if (!(key in current)) {
-      return false
+      return false;
     }
   }
-  return true
+  return true;
 }
 
 /*  */
@@ -347,11 +347,11 @@ var Link = {
   props: {
     to: {
       type: toTypes,
-      required: true
+      required: true,
     },
     tag: {
       type: String,
-      default: 'a'
+      default: 'a',
     },
     exact: Boolean,
     append: Boolean,
@@ -360,8 +360,8 @@ var Link = {
     exactActiveClass: String,
     event: {
       type: eventTypes,
-      default: 'click'
-    }
+      default: 'click',
+    },
   },
   render: function render (h) {
     var this$1 = this;
@@ -416,7 +416,7 @@ var Link = {
     }
 
     var data = {
-      class: classes
+      class: classes,
     };
 
     if (this.tag === 'a') {
@@ -439,27 +439,27 @@ var Link = {
       }
     }
 
-    return h(this.tag, data, this.$slots.default)
-  }
+    return h(this.tag, data, this.$slots.default);
+  },
 };
 
 function guardEvent (e) {
   // don't redirect with control keys
-  if (e.metaKey || e.altKey || e.ctrlKey || e.shiftKey) { return }
+  if (e.metaKey || e.altKey || e.ctrlKey || e.shiftKey) { return; }
   // don't redirect when preventDefault called
-  if (e.defaultPrevented) { return }
+  if (e.defaultPrevented) { return; }
   // don't redirect on right click
-  if (e.button !== undefined && e.button !== 0) { return }
+  if (e.button !== undefined && e.button !== 0) { return; }
   // don't redirect if `target="_blank"`
   if (e.currentTarget && e.currentTarget.getAttribute) {
     var target = e.currentTarget.getAttribute('target');
-    if (/\b_blank\b/i.test(target)) { return }
+    if (/\b_blank\b/i.test(target)) { return; }
   }
   // this may be a Weex event which doesn't have this method
   if (e.preventDefault) {
     e.preventDefault();
   }
-  return true
+  return true;
 }
 
 function findAnchor (children) {
@@ -468,10 +468,10 @@ function findAnchor (children) {
     for (var i = 0; i < children.length; i++) {
       child = children[i];
       if (child.tag === 'a') {
-        return child
+        return child;
       }
       if (child.children && (child = findAnchor(child.children))) {
-        return child
+        return child;
       }
     }
   }
@@ -480,7 +480,7 @@ function findAnchor (children) {
 var _Vue;
 
 function install (Vue) {
-  if (install.installed) { return }
+  if (install.installed) { return; }
   install.installed = true;
 
   _Vue = Vue;
@@ -508,15 +508,15 @@ function install (Vue) {
     },
     destroyed: function destroyed () {
       registerInstance(this);
-    }
+    },
   });
 
   Object.defineProperty(Vue.prototype, '$router', {
-    get: function get () { return this._routerRoot._router }
+    get: function get () { return this._routerRoot._router; },
   });
 
   Object.defineProperty(Vue.prototype, '$route', {
-    get: function get () { return this._routerRoot._route }
+    get: function get () { return this._routerRoot._route; },
   });
 
   Vue.component('router-view', View);
@@ -540,11 +540,11 @@ function resolvePath (
 ) {
   var firstChar = relative.charAt(0);
   if (firstChar === '/') {
-    return relative
+    return relative;
   }
 
   if (firstChar === '?' || firstChar === '#') {
-    return base + relative
+    return base + relative;
   }
 
   var stack = base.split('/');
@@ -572,7 +572,7 @@ function resolvePath (
     stack.unshift('');
   }
 
-  return stack.join('/')
+  return stack.join('/');
 }
 
 function parsePath (path) {
@@ -594,12 +594,12 @@ function parsePath (path) {
   return {
     path: path,
     query: query,
-    hash: hash
-  }
+    hash: hash,
+  };
 }
 
 function cleanPath (path) {
-  return path.replace(/\/\//g, '/')
+  return path.replace(/\/\//g, '/');
 }
 
 var index$1 = Array.isArray || function (arr) {
@@ -630,7 +630,7 @@ var PATH_REGEXP = new RegExp([
   // "/:test(\\d+)?" => ["/", "test", "\d+", undefined, "?", undefined]
   // "/route(\\d+)"  => [undefined, undefined, undefined, "\d+", undefined, undefined]
   // "/*"            => ["/", undefined, undefined, undefined, undefined, "*"]
-  '([\\/.])?(?:(?:\\:(\\w+)(?:\\(((?:\\\\.|[^\\\\()])+)\\))?|\\(((?:\\\\.|[^\\\\()])+)\\))([+*?])?|(\\*))'
+  '([\\/.])?(?:(?:\\:(\\w+)(?:\\(((?:\\\\.|[^\\\\()])+)\\))?|\\(((?:\\\\.|[^\\\\()])+)\\))([+*?])?|(\\*))',
 ].join('|'), 'g');
 
 /**
@@ -658,7 +658,7 @@ function parse (str, options) {
     // Ignore already escaped sequences.
     if (escaped) {
       path += escaped[1];
-      continue
+      continue;
     }
 
     var next = str[index];
@@ -689,7 +689,7 @@ function parse (str, options) {
       repeat: repeat,
       partial: partial,
       asterisk: !!asterisk,
-      pattern: pattern ? escapeGroup(pattern) : (asterisk ? '.*' : '[^' + escapeString(delimiter) + ']+?')
+      pattern: pattern ? escapeGroup(pattern) : (asterisk ? '.*' : '[^' + escapeString(delimiter) + ']+?'),
     });
   }
 
@@ -703,7 +703,7 @@ function parse (str, options) {
     tokens.push(path);
   }
 
-  return tokens
+  return tokens;
 }
 
 /**
@@ -714,7 +714,7 @@ function parse (str, options) {
  * @return {!function(Object=, Object=)}
  */
 function compile (str, options) {
-  return tokensToFunction(parse(str, options))
+  return tokensToFunction(parse(str, options));
 }
 
 /**
@@ -725,8 +725,8 @@ function compile (str, options) {
  */
 function encodeURIComponentPretty (str) {
   return encodeURI(str).replace(/[\/?#]/g, function (c) {
-    return '%' + c.charCodeAt(0).toString(16).toUpperCase()
-  })
+    return '%' + c.charCodeAt(0).toString(16).toUpperCase();
+  });
 }
 
 /**
@@ -737,8 +737,8 @@ function encodeURIComponentPretty (str) {
  */
 function encodeAsterisk (str) {
   return encodeURI(str).replace(/[?#]/g, function (c) {
-    return '%' + c.charCodeAt(0).toString(16).toUpperCase()
-  })
+    return '%' + c.charCodeAt(0).toString(16).toUpperCase();
+  });
 }
 
 /**
@@ -767,7 +767,7 @@ function tokensToFunction (tokens) {
       if (typeof token === 'string') {
         path += token;
 
-        continue
+        continue;
       }
 
       var value = data[token.name];
@@ -780,22 +780,22 @@ function tokensToFunction (tokens) {
             path += token.prefix;
           }
 
-          continue
+          continue;
         } else {
-          throw new TypeError('Expected "' + token.name + '" to be defined')
+          throw new TypeError('Expected "' + token.name + '" to be defined');
         }
       }
 
       if (index$1(value)) {
         if (!token.repeat) {
-          throw new TypeError('Expected "' + token.name + '" to not repeat, but received `' + JSON.stringify(value) + '`')
+          throw new TypeError('Expected "' + token.name + '" to not repeat, but received `' + JSON.stringify(value) + '`');
         }
 
         if (value.length === 0) {
           if (token.optional) {
-            continue
+            continue;
           } else {
-            throw new TypeError('Expected "' + token.name + '" to not be empty')
+            throw new TypeError('Expected "' + token.name + '" to not be empty');
           }
         }
 
@@ -803,26 +803,26 @@ function tokensToFunction (tokens) {
           segment = encode(value[j]);
 
           if (!matches[i].test(segment)) {
-            throw new TypeError('Expected all "' + token.name + '" to match "' + token.pattern + '", but received `' + JSON.stringify(segment) + '`')
+            throw new TypeError('Expected all "' + token.name + '" to match "' + token.pattern + '", but received `' + JSON.stringify(segment) + '`');
           }
 
           path += (j === 0 ? token.prefix : token.delimiter) + segment;
         }
 
-        continue
+        continue;
       }
 
       segment = token.asterisk ? encodeAsterisk(value) : encode(value);
 
       if (!matches[i].test(segment)) {
-        throw new TypeError('Expected "' + token.name + '" to match "' + token.pattern + '", but received "' + segment + '"')
+        throw new TypeError('Expected "' + token.name + '" to match "' + token.pattern + '", but received "' + segment + '"');
       }
 
       path += token.prefix + segment;
     }
 
-    return path
-  }
+    return path;
+  };
 }
 
 /**
@@ -832,7 +832,7 @@ function tokensToFunction (tokens) {
  * @return {string}
  */
 function escapeString (str) {
-  return str.replace(/([.+*?=^!:${}()[\]|\/\\])/g, '\\$1')
+  return str.replace(/([.+*?=^!:${}()[\]|\/\\])/g, '\\$1');
 }
 
 /**
@@ -842,7 +842,7 @@ function escapeString (str) {
  * @return {string}
  */
 function escapeGroup (group) {
-  return group.replace(/([=!:$\/()])/g, '\\$1')
+  return group.replace(/([=!:$\/()])/g, '\\$1');
 }
 
 /**
@@ -854,7 +854,7 @@ function escapeGroup (group) {
  */
 function attachKeys (re, keys) {
   re.keys = keys;
-  return re
+  return re;
 }
 
 /**
@@ -864,7 +864,7 @@ function attachKeys (re, keys) {
  * @return {string}
  */
 function flags (options) {
-  return options.sensitive ? '' : 'i'
+  return options.sensitive ? '' : 'i';
 }
 
 /**
@@ -888,12 +888,12 @@ function regexpToRegexp (path, keys) {
         repeat: false,
         partial: false,
         asterisk: false,
-        pattern: null
+        pattern: null,
       });
     }
   }
 
-  return attachKeys(path, keys)
+  return attachKeys(path, keys);
 }
 
 /**
@@ -913,7 +913,7 @@ function arrayToRegexp (path, keys, options) {
 
   var regexp = new RegExp('(?:' + parts.join('|') + ')', flags(options));
 
-  return attachKeys(regexp, keys)
+  return attachKeys(regexp, keys);
 }
 
 /**
@@ -925,7 +925,7 @@ function arrayToRegexp (path, keys, options) {
  * @return {!RegExp}
  */
 function stringToRegexp (path, keys, options) {
-  return tokensToRegExp(parse(path, options), keys, options)
+  return tokensToRegExp(parse(path, options), keys, options);
 }
 
 /**
@@ -997,7 +997,7 @@ function tokensToRegExp (tokens, keys, options) {
     route += strict && endsWithDelimiter ? '' : '(?=' + delimiter + '|$)';
   }
 
-  return attachKeys(new RegExp('^' + route, flags(options)), keys)
+  return attachKeys(new RegExp('^' + route, flags(options)), keys);
 }
 
 /**
@@ -1021,14 +1021,14 @@ function pathToRegexp (path, keys, options) {
   options = options || {};
 
   if (path instanceof RegExp) {
-    return regexpToRegexp(path, /** @type {!Array} */ (keys))
+    return regexpToRegexp(path, /** @type {!Array} */ (keys));
   }
 
   if (index$1(path)) {
-    return arrayToRegexp(/** @type {!Array} */ (path), /** @type {!Array} */ (keys), options)
+    return arrayToRegexp(/** @type {!Array} */ (path), /** @type {!Array} */ (keys), options);
   }
 
-  return stringToRegexp(/** @type {string} */ (path), /** @type {!Array} */ (keys), options)
+  return stringToRegexp(/** @type {string} */ (path), /** @type {!Array} */ (keys), options);
 }
 
 index.parse = parse_1;
@@ -1049,12 +1049,12 @@ function fillParams (
     var filler =
       regexpCompileCache[path] ||
       (regexpCompileCache[path] = index.compile(path));
-    return filler(params || {}, { pretty: true })
+    return filler(params || {}, { pretty: true });
   } catch (e) {
     {
-      warn(false, ("missing param for " + routeMsg + ": " + (e.message)));
+      warn(false, ('missing param for ' + routeMsg + ': ' + (e.message)));
     }
-    return ''
+    return '';
   }
 }
 
@@ -1087,8 +1087,8 @@ function createRouteMap (
   return {
     pathList: pathList,
     pathMap: pathMap,
-    nameMap: nameMap
-  }
+    nameMap: nameMap,
+  };
 }
 
 function addRouteRecord (
@@ -1102,11 +1102,11 @@ function addRouteRecord (
   var path = route.path;
   var name = route.name;
   {
-    assert(path != null, "\"path\" is required in a route configuration.");
+    assert(path != null, '"path" is required in a route configuration.');
     assert(
       typeof route.component !== 'string',
-      "route config \"component\" for path: " + (String(path || name)) + " cannot be a " +
-      "string id. Use an actual component instead."
+      'route config "component" for path: ' + (String(path || name)) + ' cannot be a ' +
+      'string id. Use an actual component instead.'
     );
   }
 
@@ -1132,7 +1132,7 @@ function addRouteRecord (
       ? {}
       : route.components
         ? route.props
-        : { default: route.props }
+        : { default: route.props },
   };
 
   if (route.children) {
@@ -1143,17 +1143,17 @@ function addRouteRecord (
       if (route.name && !route.redirect && route.children.some(function (child) { return /^\/?$/.test(child.path); })) {
         warn(
           false,
-          "Named Route '" + (route.name) + "' has a default child route. " +
-          "When navigating to this named route (:to=\"{name: '" + (route.name) + "'\"), " +
-          "the default child route will not be rendered. Remove the name from " +
-          "this route and use the name of the default child route for named " +
-          "links instead."
+          'Named Route \'' + (route.name) + '\' has a default child route. ' +
+          'When navigating to this named route (:to="{name: \'' + (route.name) + '\'"), ' +
+          'the default child route will not be rendered. Remove the name from ' +
+          'this route and use the name of the default child route for named ' +
+          'links instead.'
         );
       }
     }
     route.children.forEach(function (child) {
       var childMatchAs = matchAs
-        ? cleanPath((matchAs + "/" + (child.path)))
+        ? cleanPath((matchAs + '/' + (child.path)))
         : undefined;
       addRouteRecord(pathList, pathMap, nameMap, child, record, childMatchAs);
     });
@@ -1167,7 +1167,7 @@ function addRouteRecord (
     aliases.forEach(function (alias) {
       var aliasRoute = {
         path: alias,
-        children: route.children
+        children: route.children,
       };
       addRouteRecord(
         pathList,
@@ -1188,11 +1188,11 @@ function addRouteRecord (
   if (name) {
     if (!nameMap[name]) {
       nameMap[name] = record;
-    } else if ("development" !== 'production' && !matchAs) {
+    } else if ('development' !== 'production' && !matchAs) {
       warn(
         false,
-        "Duplicate named routes definition: " +
-        "{ name: \"" + name + "\", path: \"" + (record.path) + "\" }"
+        'Duplicate named routes definition: ' +
+        '{ name: "' + name + '", path: "' + (record.path) + '" }'
       );
     }
   }
@@ -1203,18 +1203,18 @@ function compileRouteRegex (path, pathToRegexpOptions) {
   {
     var keys = {};
     regex.keys.forEach(function (key) {
-      warn(!keys[key.name], ("Duplicate param keys in route with path: \"" + path + "\""));
+      warn(!keys[key.name], ('Duplicate param keys in route with path: "' + path + '"'));
       keys[key.name] = true;
     });
   }
-  return regex
+  return regex;
 }
 
 function normalizePath (path, parent) {
   path = path.replace(/\/$/, '');
-  if (path[0] === '/') { return path }
-  if (parent == null) { return path }
-  return cleanPath(((parent.path) + "/" + path))
+  if (path[0] === '/') { return path; }
+  if (parent == null) { return path; }
+  return cleanPath(((parent.path) + '/' + path));
 }
 
 /*  */
@@ -1229,7 +1229,7 @@ function normalizeLocation (
   var next = typeof raw === 'string' ? { path: raw } : raw;
   // named target
   if (next.name || next._normalized) {
-    return next
+    return next;
   }
 
   // relative params
@@ -1242,11 +1242,11 @@ function normalizeLocation (
       next.params = params;
     } else if (current.matched.length) {
       var rawPath = current.matched[current.matched.length - 1].path;
-      next.path = fillParams(rawPath, params, ("path " + (current.path)));
+      next.path = fillParams(rawPath, params, ('path ' + (current.path)));
     } else {
-      warn(false, "relative params navigation requires a current route.");
+      warn(false, 'relative params navigation requires a current route.');
     }
-    return next
+    return next;
   }
 
   var parsedPath = parsePath(next.path || '');
@@ -1263,22 +1263,22 @@ function normalizeLocation (
 
   var hash = next.hash || parsedPath.hash;
   if (hash && hash.charAt(0) !== '#') {
-    hash = "#" + hash;
+    hash = '#' + hash;
   }
 
   return {
     _normalized: true,
     path: path,
     query: query,
-    hash: hash
-  }
+    hash: hash,
+  };
 }
 
 function assign (a, b) {
   for (var key in b) {
     a[key] = b[key];
   }
-  return a
+  return a;
 }
 
 /*  */
@@ -1308,9 +1308,9 @@ function createMatcher (
     if (name) {
       var record = nameMap[name];
       {
-        warn(record, ("Route with name '" + name + "' does not exist"));
+        warn(record, ('Route with name \'' + name + '\' does not exist'));
       }
-      if (!record) { return _createRoute(null, location) }
+      if (!record) { return _createRoute(null, location); }
       var paramNames = record.regex.keys
         .filter(function (key) { return !key.optional; })
         .map(function (key) { return key.name; });
@@ -1328,8 +1328,8 @@ function createMatcher (
       }
 
       if (record) {
-        location.path = fillParams(record.path, location.params, ("named route \"" + name + "\""));
-        return _createRoute(record, location, redirectedFrom)
+        location.path = fillParams(record.path, location.params, ('named route "' + name + '"'));
+        return _createRoute(record, location, redirectedFrom);
       }
     } else if (location.path) {
       location.params = {};
@@ -1337,12 +1337,12 @@ function createMatcher (
         var path = pathList[i];
         var record$1 = pathMap[path];
         if (matchRoute(record$1.regex, location.path, location.params)) {
-          return _createRoute(record$1, location, redirectedFrom)
+          return _createRoute(record$1, location, redirectedFrom);
         }
       }
     }
     // no match
-    return _createRoute(null, location)
+    return _createRoute(null, location);
   }
 
   function redirect (
@@ -1361,10 +1361,10 @@ function createMatcher (
     if (!redirect || typeof redirect !== 'object') {
       {
         warn(
-          false, ("invalid redirect option: " + (JSON.stringify(redirect)))
+          false, ('invalid redirect option: ' + (JSON.stringify(redirect)))
         );
       }
-      return _createRoute(null, location)
+      return _createRoute(null, location);
     }
 
     var re = redirect;
@@ -1381,32 +1381,32 @@ function createMatcher (
       // resolved named direct
       var targetRecord = nameMap[name];
       {
-        assert(targetRecord, ("redirect failed: named route \"" + name + "\" not found."));
+        assert(targetRecord, ('redirect failed: named route "' + name + '" not found.'));
       }
       return match({
         _normalized: true,
         name: name,
         query: query,
         hash: hash,
-        params: params
-      }, undefined, location)
+        params: params,
+      }, undefined, location);
     } else if (path) {
       // 1. resolve relative redirect
       var rawPath = resolveRecordPath(path, record);
       // 2. resolve params
-      var resolvedPath = fillParams(rawPath, params, ("redirect route with path \"" + rawPath + "\""));
+      var resolvedPath = fillParams(rawPath, params, ('redirect route with path "' + rawPath + '"'));
       // 3. rematch with existing query and hash
       return match({
         _normalized: true,
         path: resolvedPath,
         query: query,
-        hash: hash
-      }, undefined, location)
+        hash: hash,
+      }, undefined, location);
     } else {
       {
-        warn(false, ("invalid redirect option: " + (JSON.stringify(redirect))));
+        warn(false, ('invalid redirect option: ' + (JSON.stringify(redirect))));
       }
-      return _createRoute(null, location)
+      return _createRoute(null, location);
     }
   }
 
@@ -1415,18 +1415,18 @@ function createMatcher (
     location,
     matchAs
   ) {
-    var aliasedPath = fillParams(matchAs, location.params, ("aliased route with path \"" + matchAs + "\""));
+    var aliasedPath = fillParams(matchAs, location.params, ('aliased route with path "' + matchAs + '"'));
     var aliasedMatch = match({
       _normalized: true,
-      path: aliasedPath
+      path: aliasedPath,
     });
     if (aliasedMatch) {
       var matched = aliasedMatch.matched;
       var aliasedRecord = matched[matched.length - 1];
       location.params = aliasedMatch.params;
-      return _createRoute(aliasedRecord, location)
+      return _createRoute(aliasedRecord, location);
     }
-    return _createRoute(null, location)
+    return _createRoute(null, location);
   }
 
   function _createRoute (
@@ -1435,18 +1435,18 @@ function createMatcher (
     redirectedFrom
   ) {
     if (record && record.redirect) {
-      return redirect(record, redirectedFrom || location)
+      return redirect(record, redirectedFrom || location);
     }
     if (record && record.matchAs) {
-      return alias(record, location, record.matchAs)
+      return alias(record, location, record.matchAs);
     }
-    return createRoute(record, location, redirectedFrom, router)
+    return createRoute(record, location, redirectedFrom, router);
   }
 
   return {
     match: match,
-    addRoutes: addRoutes
-  }
+    addRoutes: addRoutes,
+  };
 }
 
 function matchRoute (
@@ -1457,9 +1457,9 @@ function matchRoute (
   var m = path.match(regex);
 
   if (!m) {
-    return false
+    return false;
   } else if (!params) {
-    return true
+    return true;
   }
 
   for (var i = 1, len = m.length; i < len; ++i) {
@@ -1470,11 +1470,11 @@ function matchRoute (
     }
   }
 
-  return true
+  return true;
 }
 
 function resolveRecordPath (path, record) {
-  return resolvePath(path, record.parent ? record.parent.path : '/', true)
+  return resolvePath(path, record.parent ? record.parent.path : '/', true);
 }
 
 /*  */
@@ -1498,16 +1498,16 @@ function handleScroll (
   isPop
 ) {
   if (!router.app) {
-    return
+    return;
   }
 
   var behavior = router.options.scrollBehavior;
   if (!behavior) {
-    return
+    return;
   }
 
   {
-    assert(typeof behavior === 'function', "scrollBehavior must be a function");
+    assert(typeof behavior === 'function', 'scrollBehavior must be a function');
   }
 
   // wait until re-render finishes before scrolling
@@ -1515,7 +1515,7 @@ function handleScroll (
     var position = getScrollPosition();
     var shouldScroll = behavior(to, from, isPop ? position : null);
     if (!shouldScroll) {
-      return
+      return;
     }
     var isObject = typeof shouldScroll === 'object';
     if (isObject && typeof shouldScroll.selector === 'string') {
@@ -1542,7 +1542,7 @@ function saveScrollPosition () {
   if (key) {
     positionStore[key] = {
       x: window.pageXOffset,
-      y: window.pageYOffset
+      y: window.pageYOffset,
     };
   }
 }
@@ -1550,7 +1550,7 @@ function saveScrollPosition () {
 function getScrollPosition () {
   var key = getStateKey();
   if (key) {
-    return positionStore[key]
+    return positionStore[key];
   }
 }
 
@@ -1560,30 +1560,30 @@ function getElementPosition (el, offset) {
   var elRect = el.getBoundingClientRect();
   return {
     x: elRect.left - docRect.left - offset.x,
-    y: elRect.top - docRect.top - offset.y
-  }
+    y: elRect.top - docRect.top - offset.y,
+  };
 }
 
 function isValidPosition (obj) {
-  return isNumber(obj.x) || isNumber(obj.y)
+  return isNumber(obj.x) || isNumber(obj.y);
 }
 
 function normalizePosition (obj) {
   return {
     x: isNumber(obj.x) ? obj.x : window.pageXOffset,
-    y: isNumber(obj.y) ? obj.y : window.pageYOffset
-  }
+    y: isNumber(obj.y) ? obj.y : window.pageYOffset,
+  };
 }
 
 function normalizeOffset (obj) {
   return {
     x: isNumber(obj.x) ? obj.x : 0,
-    y: isNumber(obj.y) ? obj.y : 0
-  }
+    y: isNumber(obj.y) ? obj.y : 0,
+  };
 }
 
 function isNumber (v) {
-  return typeof v === 'number'
+  return typeof v === 'number';
 }
 
 /*  */
@@ -1597,10 +1597,10 @@ var supportsPushState = inBrowser && (function () {
     ua.indexOf('Chrome') === -1 &&
     ua.indexOf('Windows Phone') === -1
   ) {
-    return false
+    return false;
   }
 
-  return window.history && 'pushState' in window.history
+  return window.history && 'pushState' in window.history;
 })();
 
 // use User Timing api (if present) for more accurate key precision
@@ -1611,11 +1611,11 @@ var Time = inBrowser && window.performance && window.performance.now
 var _key = genKey();
 
 function genKey () {
-  return Time.now().toFixed(3)
+  return Time.now().toFixed(3);
 }
 
 function getStateKey () {
-  return _key
+  return _key;
 }
 
 function setStateKey (key) {
@@ -1741,7 +1741,7 @@ History.prototype.confirmTransition = function confirmTransition (route, onCompl
     route.matched.length === current.matched.length
   ) {
     this.ensureURL();
-    return abort()
+    return abort();
   }
 
   var ref = resolveQueue(this.current.matched, route.matched);
@@ -1765,7 +1765,7 @@ History.prototype.confirmTransition = function confirmTransition (route, onCompl
   this.pending = route;
   var iterator = function (hook, next) {
     if (this$1.pending !== route) {
-      return abort()
+      return abort();
     }
     try {
       hook(route, current, function (to) {
@@ -1806,7 +1806,7 @@ History.prototype.confirmTransition = function confirmTransition (route, onCompl
     var queue = enterGuards.concat(this$1.router.resolveHooks);
     runQueue(queue, iterator, function () {
       if (this$1.pending !== route) {
-        return abort()
+        return abort();
       }
       this$1.pending = null;
       onComplete(route);
@@ -1845,7 +1845,7 @@ function normalizeBase (base) {
     base = '/' + base;
   }
   // remove trailing slash
-  return base.replace(/\/$/, '')
+  return base.replace(/\/$/, '');
 }
 
 function resolveQueue (
@@ -1856,14 +1856,14 @@ function resolveQueue (
   var max = Math.max(current.length, next.length);
   for (i = 0; i < max; i++) {
     if (current[i] !== next[i]) {
-      break
+      break;
     }
   }
   return {
     updated: next.slice(0, i),
     activated: next.slice(i),
-    deactivated: current.slice(i)
-  }
+    deactivated: current.slice(i),
+  };
 }
 
 function extractGuards (
@@ -1877,10 +1877,10 @@ function extractGuards (
     if (guard) {
       return Array.isArray(guard)
         ? guard.map(function (guard) { return bind(guard, instance, match, key); })
-        : bind(guard, instance, match, key)
+        : bind(guard, instance, match, key);
     }
   });
-  return flatten(reverse ? guards.reverse() : guards)
+  return flatten(reverse ? guards.reverse() : guards);
 }
 
 function extractGuard (
@@ -1891,22 +1891,22 @@ function extractGuard (
     // extend now so that global mixins are applied.
     def = _Vue.extend(def);
   }
-  return def.options[key]
+  return def.options[key];
 }
 
 function extractLeaveGuards (deactivated) {
-  return extractGuards(deactivated, 'beforeRouteLeave', bindGuard, true)
+  return extractGuards(deactivated, 'beforeRouteLeave', bindGuard, true);
 }
 
 function extractUpdateHooks (updated) {
-  return extractGuards(updated, 'beforeRouteUpdate', bindGuard)
+  return extractGuards(updated, 'beforeRouteUpdate', bindGuard);
 }
 
 function bindGuard (guard, instance) {
   if (instance) {
     return function boundRouteGuard () {
-      return guard.apply(instance, arguments)
-    }
+      return guard.apply(instance, arguments);
+    };
   }
 }
 
@@ -1916,8 +1916,8 @@ function extractEnterGuards (
   isValid
 ) {
   return extractGuards(activated, 'beforeRouteEnter', function (guard, _, match, key) {
-    return bindEnterGuard(guard, match, key, cbs, isValid)
-  })
+    return bindEnterGuard(guard, match, key, cbs, isValid);
+  });
 }
 
 function bindEnterGuard (
@@ -1940,8 +1940,8 @@ function bindEnterGuard (
           poll(cb, match.instances, key, isValid);
         });
       }
-    })
-  }
+    });
+  };
 }
 
 function poll (
@@ -1988,8 +1988,8 @@ function resolveAsyncComponents (matched) {
         });
 
         var reject = once(function (reason) {
-          var msg = "Failed to resolve async component " + key + ": " + reason;
-          "development" !== 'production' && warn(false, msg);
+          var msg = 'Failed to resolve async component ' + key + ': ' + reason;
+          'development' !== 'production' && warn(false, msg);
           if (!error) {
             error = isError(reason)
               ? reason
@@ -2019,7 +2019,7 @@ function resolveAsyncComponents (matched) {
     });
 
     if (!hasAsync) { next(); }
-  }
+  };
 }
 
 function flatMapComponents (
@@ -2031,12 +2031,12 @@ function flatMapComponents (
       m.components[key],
       m.instances[key],
       m, key
-    ); })
-  }))
+    ); });
+  }));
 }
 
 function flatten (arr) {
-  return Array.prototype.concat.apply([], arr)
+  return Array.prototype.concat.apply([], arr);
 }
 
 // in Webpack 2, require.ensure now also returns a Promise
@@ -2049,14 +2049,14 @@ function once (fn) {
     var args = [], len = arguments.length;
     while ( len-- ) args[ len ] = arguments[ len ];
 
-    if (called) { return }
+    if (called) { return; }
     called = true;
-    return fn.apply(this, args)
-  }
+    return fn.apply(this, args);
+  };
 }
 
 function isError (err) {
-  return Object.prototype.toString.call(err).indexOf('Error') > -1
+  return Object.prototype.toString.call(err).indexOf('Error') > -1;
 }
 
 /*  */
@@ -2124,7 +2124,7 @@ var HTML5History = (function (History$$1) {
   };
 
   HTML5History.prototype.getCurrentLocation = function getCurrentLocation () {
-    return getLocation(this.base)
+    return getLocation(this.base);
   };
 
   return HTML5History;
@@ -2135,7 +2135,7 @@ function getLocation (base) {
   if (base && path.indexOf(base) === 0) {
     path = path.slice(base.length);
   }
-  return (path || '/') + window.location.search + window.location.hash
+  return (path || '/') + window.location.search + window.location.hash;
 }
 
 /*  */
@@ -2146,7 +2146,7 @@ var HashHistory = (function (History$$1) {
     History$$1.call(this, router, base);
     // check history fallback deeplinking
     if (fallback && checkFallback(this.base)) {
-      return
+      return;
     }
     ensureSlash();
   }
@@ -2162,7 +2162,7 @@ var HashHistory = (function (History$$1) {
 
     window.addEventListener('hashchange', function () {
       if (!ensureSlash()) {
-        return
+        return;
       }
       this$1.transitionTo(getHash(), function (route) {
         replaceHash(route.fullPath);
@@ -2196,7 +2196,7 @@ var HashHistory = (function (History$$1) {
   };
 
   HashHistory.prototype.getCurrentLocation = function getCurrentLocation () {
-    return getHash()
+    return getHash();
   };
 
   return HashHistory;
@@ -2208,17 +2208,17 @@ function checkFallback (base) {
     window.location.replace(
       cleanPath(base + '/#' + location)
     );
-    return true
+    return true;
   }
 }
 
 function ensureSlash () {
   var path = getHash();
   if (path.charAt(0) === '/') {
-    return true
+    return true;
   }
   replaceHash('/' + path);
-  return false
+  return false;
 }
 
 function getHash () {
@@ -2226,7 +2226,7 @@ function getHash () {
   // consistent across browsers - Firefox will pre-decode it!
   var href = window.location.href;
   var index = href.indexOf('#');
-  return index === -1 ? '' : href.slice(index + 1)
+  return index === -1 ? '' : href.slice(index + 1);
 }
 
 function pushHash (path) {
@@ -2237,7 +2237,7 @@ function replaceHash (path) {
   var href = window.location.href;
   var i = href.indexOf('#');
   var base = i >= 0 ? href.slice(0, i) : href;
-  window.location.replace((base + "#" + path));
+  window.location.replace((base + '#' + path));
 }
 
 /*  */
@@ -2278,7 +2278,7 @@ var AbstractHistory = (function (History$$1) {
 
     var targetIndex = this.index + n;
     if (targetIndex < 0 || targetIndex >= this.stack.length) {
-      return
+      return;
     }
     var route = this.stack[targetIndex];
     this.confirmTransition(route, function () {
@@ -2289,7 +2289,7 @@ var AbstractHistory = (function (History$$1) {
 
   AbstractHistory.prototype.getCurrentLocation = function getCurrentLocation () {
     var current = this.stack[this.stack.length - 1];
-    return current ? current.fullPath : '/'
+    return current ? current.fullPath : '/';
   };
 
   AbstractHistory.prototype.ensureURL = function ensureURL () {
@@ -2325,16 +2325,16 @@ var VueRouter = function VueRouter (options) {
   switch (mode) {
     case 'history':
       this.history = new HTML5History(this, options.base);
-      break
+      break;
     case 'hash':
       this.history = new HashHistory(this, options.base, this.fallback);
-      break
+      break;
     case 'abstract':
       this.history = new AbstractHistory(this, options.base);
-      break
+      break;
     default:
       {
-        assert(false, ("invalid mode: " + mode));
+        assert(false, ('invalid mode: ' + mode));
       }
   }
 };
@@ -2346,27 +2346,27 @@ VueRouter.prototype.match = function match (
   current,
   redirectedFrom
 ) {
-  return this.matcher.match(raw, current, redirectedFrom)
+  return this.matcher.match(raw, current, redirectedFrom);
 };
 
 prototypeAccessors.currentRoute.get = function () {
-  return this.history && this.history.current
+  return this.history && this.history.current;
 };
 
 VueRouter.prototype.init = function init (app /* Vue component instance */) {
     var this$1 = this;
 
-  "development" !== 'production' && assert(
+  'development' !== 'production' && assert(
     install.installed,
-    "not installed. Make sure to call `Vue.use(VueRouter)` " +
-    "before creating root instance."
+    'not installed. Make sure to call `Vue.use(VueRouter)` ' +
+    'before creating root instance.'
   );
 
   this.apps.push(app);
 
   // main app already initialized.
   if (this.app) {
-    return
+    return;
   }
 
   this.app = app;
@@ -2394,15 +2394,15 @@ VueRouter.prototype.init = function init (app /* Vue component instance */) {
 };
 
 VueRouter.prototype.beforeEach = function beforeEach (fn) {
-  return registerHook(this.beforeHooks, fn)
+  return registerHook(this.beforeHooks, fn);
 };
 
 VueRouter.prototype.beforeResolve = function beforeResolve (fn) {
-  return registerHook(this.resolveHooks, fn)
+  return registerHook(this.resolveHooks, fn);
 };
 
 VueRouter.prototype.afterEach = function afterEach (fn) {
-  return registerHook(this.afterHooks, fn)
+  return registerHook(this.afterHooks, fn);
 };
 
 VueRouter.prototype.onReady = function onReady (cb, errorCb) {
@@ -2440,13 +2440,13 @@ VueRouter.prototype.getMatchedComponents = function getMatchedComponents (to) {
       : this.resolve(to).route
     : this.currentRoute;
   if (!route) {
-    return []
+    return [];
   }
   return [].concat.apply([], route.matched.map(function (m) {
     return Object.keys(m.components).map(function (key) {
-      return m.components[key]
-    })
-  }))
+      return m.components[key];
+    });
+  }));
 };
 
 VueRouter.prototype.resolve = function resolve (
@@ -2470,8 +2470,8 @@ VueRouter.prototype.resolve = function resolve (
     href: href,
     // for backwards compat
     normalizedTo: location,
-    resolved: route
-  }
+    resolved: route,
+  };
 };
 
 VueRouter.prototype.addRoutes = function addRoutes (routes) {
@@ -2488,12 +2488,12 @@ function registerHook (list, fn) {
   return function () {
     var i = list.indexOf(fn);
     if (i > -1) { list.splice(i, 1); }
-  }
+  };
 }
 
 function createHref (base, fullPath, mode) {
   var path = mode === 'hash' ? '#' + fullPath : fullPath;
-  return base ? cleanPath(base + '/' + path) : path
+  return base ? cleanPath(base + '/' + path) : path;
 }
 
 VueRouter.install = install;

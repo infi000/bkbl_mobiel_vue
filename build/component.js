@@ -13,7 +13,7 @@
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			i: moduleId,
 /******/ 			l: false,
-/******/ 			exports: {}
+/******/ 			exports: {},
 /******/ 		};
 /******/
 /******/ 		// Execute the module function
@@ -42,7 +42,7 @@
 /******/ 			Object.defineProperty(exports, name, {
 /******/ 				configurable: false,
 /******/ 				enumerable: true,
-/******/ 				get: getter
+/******/ 				get: getter,
 /******/ 			});
 /******/ 		}
 /******/ 	};
@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
+/******/ 	__webpack_require__.p = '';
 /******/
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(__webpack_require__.s = 5);
@@ -70,7 +70,7 @@
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+'use strict';
 /*
 * @Author: 张驰阳
 * @Date:   2017-06-23 11:36:00
@@ -80,7 +80,7 @@
 
 
 
-Vue.component("component-bar", {
+Vue.component('component-bar', {
     template: '<div class="weui-navbar" id="main_navbar"></div>',
 });
 
@@ -88,7 +88,7 @@ Vue.component("component-bar", {
 /* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+'use strict';
 /*
 * @Author: 张驰阳
 * @Date:   2017-06-23 11:35:52
@@ -97,7 +97,7 @@ Vue.component("component-bar", {
 */
 
 
-Vue.component("component-bn", {
+Vue.component('component-bn', {
     template: '<div class="page_bn"></div>',
 });
 
@@ -105,7 +105,7 @@ Vue.component("component-bn", {
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+'use strict';
 /*
  * @Author: 张驰阳
  * @Date:   2017-06-23 11:36:06
@@ -114,7 +114,7 @@ Vue.component("component-bn", {
  */
 
 
-Vue.component("component-chat", {
+Vue.component('component-chat', {
     template: '<div class="weui-panel__bd" id="chatBox"></div>',
 });
 
@@ -123,7 +123,7 @@ Vue.component("component-chat", {
 /* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+'use strict';
 /*
 * @Author: 张驰阳
 * @Date:   2017-06-23 11:35:22
@@ -132,8 +132,8 @@ Vue.component("component-chat", {
 */
 
 
-Vue.component("component-hd", {
-	props:["hdmodel"],
+Vue.component('component-hd', {
+	props:['hdmodel'],
     template: '<div class="page_hd"><div id="video">{{hdmodel}}</div></div>',
 });
 
@@ -148,5 +148,5 @@ __webpack_require__(2);
 module.exports = __webpack_require__(3);
 
 
-/***/ })
+/***/ }),
 /******/ ]);

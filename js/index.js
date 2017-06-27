@@ -2,13 +2,13 @@
  * @Author: 张驰阳
  * @Date:   2017-06-23 10:50:38
  * @Last Modified by:   张驰阳
- * @Last Modified time: 2017-06-27 11:21:14
+ * @Last Modified time: 2017-06-27 17:51:51
  */
 
 'use strict';
 
-Vue.component("component-wrap", {
-    props: [""],
+Vue.component('component-wrap', {
+    props: [''],
     template: '<div class="wrap">\
                 <div class="page">\
                     <slot name="page_hd"></slot>\
@@ -21,19 +21,20 @@ Vue.component("component-wrap", {
                             </div>\
                         </div>\
                     </div>\
+                    <slot name="speak"></slot>\
                 </div>\
               </div>',
     data: function() {
         return {};
-    }
+    },
 });
 
 var app = new Vue({
-    el: "#app",
+    el: '#app',
     data: {
         demo: demo.data1,
         userInfo: demo.userInfo,
-        changebarStyle: ""
+        changebarStyle: '',
     },
     computed: {
         barStyle: function() {
@@ -41,23 +42,22 @@ var app = new Vue({
                 w = this.demo.special,
                 _ = this.changebarStyle;
             if (_) {
-                return _
+                return _;
             }
             if (h == 1) {
-                return "host"
-            };
-            if (h != 1 && w == 1) {
-                return "wonder"
-            };
-            if (h != 1 && w !== 1) {
-                return "chat"
+                return 'host';
             }
-        }
+            if (h != 1 && w == 1) {
+                return 'wonder';
+            }
+            if (h != 1 && w !== 1) {
+                return 'chat';
+            }
+        },
     },
     methods: {
         showChat: function(e) {
-            console.log(e)
             this.changebarStyle = e;
         }},
     router,
-})
+});

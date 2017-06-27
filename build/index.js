@@ -13,7 +13,7 @@
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			i: moduleId,
 /******/ 			l: false,
-/******/ 			exports: {}
+/******/ 			exports: {},
 /******/ 		};
 /******/
 /******/ 		// Execute the module function
@@ -42,7 +42,7 @@
 /******/ 			Object.defineProperty(exports, name, {
 /******/ 				configurable: false,
 /******/ 				enumerable: true,
-/******/ 				get: getter
+/******/ 				get: getter,
 /******/ 			});
 /******/ 		}
 /******/ 	};
@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
+/******/ 	__webpack_require__.p = '';
 /******/
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(__webpack_require__.s = 4);
@@ -71,7 +71,7 @@
 /***/ 4:
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+'use strict';
 /*
  * @Author: 张驰阳
  * @Date:   2017-06-23 10:50:38
@@ -80,8 +80,8 @@
  */
 
 
-Vue.component("component-wrap", {
-    props:["model"],
+Vue.component('component-wrap', {
+    props:['model'],
     template: '<div class="wrap">\
 				<div class="page"><h1>{{model}}</h1>\
 					<slot name="page_hd"></slot>\
@@ -98,16 +98,16 @@ Vue.component("component-wrap", {
 			  </div>',
     data:function(){
         return {};
-    }
+    },
 });
 
 var app = new Vue({
-    el: "#app",
-    data:demo.data1
+    el: '#app',
+    data:demo.data1,
 
-})
+});
 
 
-/***/ })
+/***/ }),
 
 /******/ });

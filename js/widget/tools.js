@@ -9,5 +9,5 @@ Vue.component("widget-bn", {
 
 //mask
 Vue.component("widget-mask",{
-	template:"<div class='weui-mask'>";
+	template:"<div class='weui-mask'>"
 })

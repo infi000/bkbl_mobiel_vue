@@ -2,7 +2,7 @@
  * @Author: 张驰阳
  * @Date:   2017-06-23 10:50:38
  * @Last Modified by:   张驰阳
- * @Last Modified time: 2017-06-26 17:20:43
+ * @Last Modified time: 2017-06-27 11:21:14
  */
 
 'use strict';
@@ -56,6 +56,7 @@ var app = new Vue({
     },
     methods: {
         showChat: function(e) {
+            console.log(e)
             this.changebarStyle = e;
         }},
     router,

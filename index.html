@@ -23,21 +23,31 @@
         <component-wrap>
             <component-hd slot="page_hd" :hdmodel='demo.model' :hdimg='demo.image' :hdsource="demo.source"></component-hd>
             <component-bn slot="page_bn"></component-bn>
-            <component-bar slot="main_navbar" :barhost='demo.subject' :barwonder='demo.special' :barstyle='barStyle'></component-bar>
-            <component-chat slot="chat_box" :cbstyle='barStyle'></component-chat>
+            <component-bar slot="main_navbar" :barhost='demo.subject' :barwonder='demo.special' :barstyle='barStyle' @sc="showChat"></component-bar>
+            <template slot="chat_box" :cbstyle='barStyle' @sc="showChat">
+                <component-cbhost v-if="barStyle=='host'" :uid="userInfo.uid"></component-cbhost>
+                <component-cbwonder v-if="barStyle=='wonder'" :uid="userInfo.uid"></component-cbwonder>
+                <component-cbchat v-if="barStyle=='chat'" :uid="userInfo.uid"></component-cbchat>
+            </template>
         </component-wrap>
-         <router-link to="/wp">Go to Foo</router-link><router-view></router-view>
+        <router-link to="/wp">Go to Foo</router-link>
+        <router-view></router-view>
     </div>
 </body>
 <script src="./js/lib/jquery.min.js"></script>
 <script src="./js/lib/swiper.min.js"></script>
 <script src="./js/lib/vue.js"></script>
 <script src="./js/lib/vue-router.js"></script>
+<script src="./js/tools.js"></script>
 <!--  生产环境
 <script src="/build/component.js"></script>
 <script src="/build/index.js"></script> 
 -->
 <!-- 开发环境 -->
+
+<script src="./js/widget/tools.js"></script>
+<script src="./js/widget/cl.js"></script>
+<script src="./js/widget/wl.js"></script>
 <script src="./js/component/wp.js"></script>
 <script src="./js/component/hd.js"></script>
 <script src="./js/component/bn.js"></script>
@@ -46,4 +56,5 @@
 <script src="./js/router.js"></script>
 <script src="./js/index.js"></script>
 <!-- 开发环境  end -->
+
 </html>

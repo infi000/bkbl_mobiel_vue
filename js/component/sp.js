@@ -1,6 +1,5 @@
 // speakPage
 Vue.component('component-speakpage',{
-	props:['type'],
 	template: '<div class="page">\
                         <div class="comment">\
                             <div class="weui-cell" v-if="type">\
@@ -14,7 +13,7 @@ Vue.component('component-speakpage',{
                             <div class="weui-cells weui-cells_form">\
                                 <div class="weui-cell">\
                                     <div class="weui-cell__bd">\
-                                        <textarea class="weui-textarea" placeholder="这一刻你想说的。。" rows="3" id="emoji"></textarea>\
+                                       <textarea class="weui-textarea" placeholder="这一刻你想说的。。" rows="3" id="emoji"></textarea>\
                                     </div>\
                                 </div>\
                             </div>\
@@ -32,6 +31,11 @@ Vue.component('component-speakpage',{
                             <a @click="router.go(-1)" class="weui-btn weui-btn_default">返回</a>\
                         </div>\
                     </div>',	
+    data:function(){
+        return {
+            type:this.$route.query.type,
+        }
+    },
 
 
 });

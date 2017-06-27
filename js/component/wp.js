@@ -24,7 +24,7 @@ Vue.component('component-wonderpage', {
                                     </section>\
                             </article>\
                         </div>\
-                        <widget-speak :type="true"></widget-speak>\
+                        <widget-speak :type="false"></widget-speak>\
                     </div>',
   data: function() {
     return { info: '' };

@@ -27,9 +27,9 @@ var DO = document,
         getWonder: 7259, //精彩详情
         getShare: 7116, //获取分享设置
     },
-    XID = getSearch().xopenid || '',
-    TID = getSearch().talk_id || '',
-    AU = getSearch().author || '',
+    XID = getSearch().xopenid || "oXhPVvmTMDsrjcD0eb9yltn9N4Z4",
+    TID = getSearch().talk_id || "17ef7347ed49cce3680d93de46200ff4",
+    AU = getSearch().author || "Fw6RLKFKLAbQjvj3O3QVucIKob-NDtyJ4giwFWgHP_tsWgTMgaFYRSehVI0vCAnoVIedN4upeh9SfnitMp2VIw",
     PW = localStorage.getItem('homePW') || '',
     PWT = localStorage.getItem('homePW_time') || '',
     atoken = '';

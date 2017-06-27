@@ -13,8 +13,8 @@ Vue.component('widget-cl', {
                                         <p class="rep_time">{{info.date}}</p>\
                                         <a class="rep_del" v-if="info.uid==uid">删除</a>\
                                         <div class="rep_tag btn_getTools" @click="toggleTools"><i class="iconfont icon-gengduo"></i></div>\
-                                        <widget-toolsbar v-if="tools_on"></widget-toolsbar>\
-                                        <widget-mask v-if="tools_on" @click="toggleTools"></widget-mask>\
+                                        <widget-toolsbar v-if="tools_on" @tools_off="toggleTools"></widget-toolsbar>\
+                                        <widget-mask v-if="tools_on" @tools_off="toggleTools"></widget-mask>\
                                     </div>\
                                     <widget-retort></widget-retort>\
                                     <widget-repo></widget-repo>\

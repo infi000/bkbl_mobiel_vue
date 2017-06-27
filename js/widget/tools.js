@@ -13,10 +13,17 @@ Vue.component('widget-mask',{
 });
 
 //speak
-
 Vue.component('widget-speak',{
 	template: '<div class="speak">\
                    <a @click="router.push({ path: \'sp\', query: { }})" class="weui-btn weui-btn_primary btn_comment">发言</a>\
                  </div>',
+});
 
+//toolsBar
+Vue.component('widget-toolsbar',{
+	template:'<div class="weui-navbar act_rl">\
+                   <div class="weui-navbar__item" id="btn_repo" v-if="false"><i class="iconfont icon-fenxiang"></i>引用</div>\
+                    <div class="weui-navbar__item" id="btn_star"><i class="iconfont icon-xihuan"></i><span id="hasRetort"></span></div>\
+                    <div class="weui-navbar__item btn_comment"><i class="iconfont icon-pinglun"></i>评论</div>\
+               </div>'
 });

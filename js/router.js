@@ -2,8 +2,6 @@
 
 // 1. 定义（路由）组件。
 // 可以从其他文件 import 进来
-var Foo = { template: '<div>foo</div>' };
-var Bar = { template: '<div>bar</div>' };
 
 var wp={template:'<component-wonderpage></component-wonderpage>'};
 var sp={template:'<component-speakpage></component-speakpage>'};
@@ -14,8 +12,6 @@ var sp={template:'<component-speakpage></component-speakpage>'};
 // 或者，只是一个组件配置对象。
 // 我们晚点再讨论嵌套路由。
 var routes = [
-  { path: '/foo', component: Foo },
-  { path: '/bar', component: Bar },
   { path: '/wp', component: wp },
   { path: '/sp', component: sp },
 ];

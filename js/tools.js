@@ -107,10 +107,6 @@ function arrayDel(arr, val) {
                 bn1_h = 0,
                 con_h,
                 video_h;
-            // if (typeOf(bn1[0]) == "dom") {
-            //     bn1_h = $DB.width() / 8;
-            //     bn1.height(bn1_h);
-            // }
             if (typeOf(video[0]) == 'dom') {
                 video_h = $DB.width() * (9 / 16);
                     if(video_h>500){
@@ -119,12 +115,6 @@ function arrayDel(arr, val) {
                 video.height(video_h);
             }
             if (typeOf(con[0]) == 'dom') {
-                // var hd_h = $(".page_hd").height() + 50,
-                //     con_h = clientHeight - hd_h - 100;
-                // var hd_h = video_h + 50,
-                //     con_h = clientHeight - hd_h - 100;
-                // console.log(clientHeight, hd_h, con_h);
-                // con.height(con_h)
                  con_h=clientHeight-video_h;
                 con.height(con_h);
             }

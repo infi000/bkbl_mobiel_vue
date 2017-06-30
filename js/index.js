@@ -2,25 +2,17 @@
  * @Author: 张驰阳
  * @Date:   2017-06-23 10:50:38
  * @Last Modified by:   张驰阳
- * @Last Modified time: 2017-06-29 18:29:41
+ * @Last Modified time: 2017-06-30 15:58:36
  */
 
 'use strict';
-Vue.prototype.pullMore = function(opt) {
-
-}
-
+//获取主持列表
 Vue.prototype.get_presideList = function(opt) {
-    // opt={
-    //     id:0,
-    //     num:5,
-    //     o:this
-    // }
     var vue_proto = this,
         $opt = opt || {},
-        id = $opt.id || 0,
         num = $opt.num || 5,
         that = $opt.o,
+        id = that.$data.lastId,
         top = that.$data.top,
         info = {
             talk_id: TID,
@@ -46,7 +38,8 @@ Vue.prototype.get_presideList = function(opt) {
             if (d) {
                 //加载数据
                 that.$data.listData.push.apply(that.$data.listData, d);
-                // that.refresh_chat(d);
+                var arr = d[d.length - 1];
+                that.$data.lastId = arr.id;
             }
             if (d && d.length >= num) {
                 //删除loadin
@@ -54,35 +47,67 @@ Vue.prototype.get_presideList = function(opt) {
                 that.noData = false
                 that.loading = false;
             } else {
-                if (top == "") {
+                if (top == 0) {
                     //显示暂无数据
                     //删除loading
                     that.noData = true;
                     that.loading = false;
-                    return
                 } else {
                     //设置top为空
                     //删除暂无数据
                     //继续执行方法加载没有置顶的数据
                     that.noData = false
                     that.$data.top = 0;
+                    that.$data.lastId = 0;
                     $opt.num = num - d.length;
-                    $opt.id = "0";
                     vue_proto.get_presideList($opt)
                 }
             }
         }
     })
-
-
 };
+//获取精彩列表
+Vue.prototype.get_wonderList = function(opt) {
+    var $opt = opt || {},
+        that = $opt.o,
+        num = $opt.num || 6,
+        page = that.$data.page || 1,
+        info = {
+            m: params.wonderList,
+            type: 1,
+            num: num,
+            page: page,
+            talk_id: TID,
+            xopenid: XID,
+            author: AU,
+        };
+    invoke({
+        data: info,
+        fun: function(d) {
+            // WSnum.wonder = NUM.special;
+            // var badge = $("#main_navbar a[dataType='wonder']").find("span");
+            // if (typeOf(badge[0]) == "dom") {
+            //     var res = badge.html();
+            //     console.log(res);
+            //     WSnum.wonder = parseInt(WSnum.wonder) + parseInt(res);
+            // }
+            // badge.remove();
 
+            var t = Math.ceil(d.total / num), //总页数
+                c = d.curr; //当前页
+            that.$data.page+=1;
+            that.$data.loading = false;
+            that.$data.listData.push.apply(that.$data.listData, d.list);
+            that.$data.noData = (t== c);
+        }
+    });
+};
 Vue.component('component-wrap', {
     props: [''],
     template: '<div class="wrap">\
                 <div class="page">\
                     <slot name="page_hd"></slot>\
-                    <div class="page_bd" id="scroll">\
+                    <div class="page_bd" id="scroll" @scroll="isScroll">\
                             <slot name="page_bn"></slot>\
                             <div class="weui-tab">\
                                 <slot name="main_navbar"></slot>\
@@ -101,8 +126,37 @@ Vue.component('component-wrap', {
         //加载iscroll
 
     },
+    methods: {
+        isScroll: function(e) {
+            var el = e.target,
+                el_h = $(el).height(),
+                el_oh = el.offsetHeight,
+                el_sh = el.scrollHeight,
+                el_st = el.scrollTop,
+                sum = el_sh - el_oh,
+                nowTag = app.barStyle;
+            if (app.$refs[nowTag].$data.noData || app.$refs[nowTag].$data.loading) {
+                return
+            }
+            if (sum - el_st <= 50) {
+                app.$refs[nowTag].$data.loading = true;
+                setTimeout(function() {
+                    switch (nowTag) {
+                        case "host":
+                            Vue.prototype.get_presideList({ o: app.$refs[nowTag] });
+                            break;
+                        case "wonder":
+                            Vue.prototype.get_wonderList({ o: app.$refs[nowTag] });
+                            break;
+                        case "chat":
+                            Vue.prototype.get_wonderList({ o: app.$refs[nowTag] });
+                            break;
+                    }
+                }, 1000);
+            };
+        }
+    },
 });
-
 var app = new Vue({
     el: '#app',
     data: {

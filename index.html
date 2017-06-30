@@ -25,9 +25,9 @@
             <component-bn slot="page_bn"></component-bn>
             <component-bar slot="main_navbar" :barhost='demo.subject' :barwonder='demo.special' :barstyle='barStyle' @sc="showChat"></component-bar>
             <template slot="chat_box" :cbstyle='barStyle' @sc="showChat">
-                <component-cbhost v-if="barStyle=='host'" :uid="userInfo.uid"></component-cbhost>
-                <component-cbwonder v-if="barStyle=='wonder'" :uid="userInfo.uid"></component-cbwonder>
-                <component-cbchat v-if="barStyle=='chat'" :uid="userInfo.uid"></component-cbchat>
+                <component-cbhost v-if="barStyle=='host'" :uid="userInfo.uid" ref="host"></component-cbhost>
+                <component-cbwonder v-if="barStyle=='wonder'" :uid="userInfo.uid" ref="wonder"></component-cbwonder>
+                <component-cbchat v-if="barStyle=='chat'" :uid="userInfo.uid" ref="chat"></component-cbchat>
             </template>
             <widget-speak slot="speak" v-if="barStyle=='chat'" :type="true"></widget-speak>
         </component-wrap>
@@ -48,6 +48,7 @@
 <script src="./js/widget/tools.js"></script>
 <script src="./js/widget/cl.js"></script>
 <script src="./js/widget/wl.js"></script>
+<script src="./js/component/view_img.js"></script>
 <script src="./js/component/sp.js"></script>
 <script src="./js/component/wp.js"></script>
 <script src="./js/component/hd.js"></script>

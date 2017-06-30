@@ -3,8 +3,10 @@
 // 1. 定义（路由）组件。
 // 可以从其他文件 import 进来
 
-var wp={template:'<component-wonderpage></component-wonderpage>'};
-var sp={template:'<component-speakpage></component-speakpage>'};
+var routerName_wp={template:'<component-wonderpage></component-wonderpage>'};
+var routerName_sp={template:'<component-speakpage></component-speakpage>'};
+var routerName_img={template:'<component-viewimg></component-viewimg>'};
+var routerName_video={template:'<component-viewvideo></component-viewvideo>'};
 
 // 2. 定义路由
 // 每个路由应该映射一个组件。 其中"component" 可以是
@@ -12,8 +14,10 @@ var sp={template:'<component-speakpage></component-speakpage>'};
 // 或者，只是一个组件配置对象。
 // 我们晚点再讨论嵌套路由。
 var routes = [
-  { path: '/wp', component: wp },
-  { path: '/sp', component: sp },
+  { path: '/wp', component: routerName_wp },
+  { path: '/sp', component: routerName_sp },
+  { path: '/img', component: routerName_img },
+  { path: '/video', component: routerName_video },
 ];
 
 // 3. 创建 router 实例，然后传 `routes` 配置

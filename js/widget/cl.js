@@ -13,11 +13,11 @@ Vue.component('widget-cl', {
                                     <div class="viewType"  v-if="info.type&&parseInt(info.type)==3">\
                                         <div class="viewBox">\
                                             <img :src="info.image" style="height:200px;max-width:100%" onerror="imgError(this,\'./static/logo2.png\')">\
-                                            <span class="btn_playView" dataType="info.video"><i class="iconfont icon-bofang1"></i></span>\
+                                            <span class="btn_playView" @click="router.push({path:\'video\',query:{source:info.video,msg:info.message}})" ><i class="iconfont icon-bofang1"></i></span>\
                                         </div>\
                                     </div>\
                                     <p class="weui-media-box__desc  btn_chatMsg" v-if="info.type&&parseInt(info.type)==1&&info.image">\
-                                        <img :src="info.image" @click="router.push({path:\'img\',query:{style:false,src:info.image}})" onerror="imgError(this,\'./static/overtime.png\',{width:80,height:40})">\
+                                        <img :src="info.image" @click="router.push({path:\'img\',query:{style:false,src:info.image,msg:info.message}})" onerror="imgError(this,\'./static/overtime.png\',{width:80,height:40})">\
                                     </p>\
                                     <div class="viewType" v-if="info.type&&parseInt(info.type)==4">\
                                         <a :href="info.video"><i class="iconfont icon-lianjie"></i>{{info.image}}</a>\
@@ -26,10 +26,10 @@ Vue.component('widget-cl', {
                                         <p class="rep_time">{{info.date}}</p>\
                                         <a class="rep_del" v-if="info.uid==uid">删除</a>\
                                         <div class="rep_tag btn_getTools" @click="toggleTools"><i class="iconfont icon-gengduo"></i></div>\
-                                        <widget-toolsbar v-if="tools_on" @tools_off="toggleTools"></widget-toolsbar>\
+                                        <widget-toolsbar v-if="tools_on" @tools_off="toggleTools" @onRetort="reloadRetort" :info="info" :uid="uid" ></widget-toolsbar>\
                                         <widget-mask v-if="tools_on" @tools_off="toggleTools"></widget-mask>\
                                     </div>\
-                                    <widget-retort v-if="info.retort" :info="info.retort.list"></widget-retort>\
+                                    <widget-retort v-if="info.retort" :info="info.retort.list" ></widget-retort>\
                                     <div class="rep_box rep_box_repo" v-if="info.comment">\
                                         <div class="rep_tag">\
                                            <i class="iconfont icon-pinglun"></i>\
@@ -47,6 +47,33 @@ Vue.component('widget-cl', {
         toggleTools: function() {
             this.tools_on = !this.tools_on;
         },
+        reloadRetort: function(d) {
+            var id = d[0],
+                type = d[1] || "",
+                uid=demo.userInfo.uid;
+            if (type) {
+                //添加点赞
+                var i = { head: demo.userInfo.head, id: id, uid: uid };
+                if(this.info.retort.list){
+                   this.info.retort.list.push(i); 
+               }else{
+                this.info.retort.list=[i];
+               }
+                
+            } else {
+                //删除点赞
+                for (var key in this.info.retort.list) {
+                    var info = this.info.retort.list[key];
+                    if (info.uid == uid) {
+                        this.info.retort.list.splice(key, 1);
+                        if(this.info.retort.list.length==0){
+                            this.info.retort=""
+                        }
+                        return
+                    }
+                }
+            }
+        }
     },
 });
 
@@ -82,9 +109,9 @@ Vue.component('widget-repo', {
 });
 
 //点赞domw idget-retort
-Vue.component('widget-retort',{
-    props:["info"],
-    template:'<div class="rep_box rep_box_retort">\
+Vue.component('widget-retort', {
+    props: ["info"],
+    template: '<div class="rep_box rep_box_retort">\
                             <div class="rep_tag">\
                                 <i class="iconfont icon-xihuan"></i>\
                             </div>\
@@ -93,4 +120,3 @@ Vue.component('widget-retort',{
                             </div>\
                     </div>'
 })
-

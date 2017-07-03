@@ -2,7 +2,7 @@
  * @Author: 张驰阳
  * @Date:   2017-06-23 10:50:38
  * @Last Modified by:   张驰阳
- * @Last Modified time: 2017-06-30 15:58:36
+ * @Last Modified time: 2017-07-03 19:10:46
  */
 
 'use strict';
@@ -95,12 +95,33 @@ Vue.prototype.get_wonderList = function(opt) {
 
             var t = Math.ceil(d.total / num), //总页数
                 c = d.curr; //当前页
-            that.$data.page+=1;
+            that.$data.page += 1;
             that.$data.loading = false;
             that.$data.listData.push.apply(that.$data.listData, d.list);
-            that.$data.noData = (t== c);
+            that.$data.noData = (t == c);
         }
     });
+};
+//点赞
+Vue.prototype.retort = function(opt) {
+    var $opt = opt || {},
+        id = $opt.id,
+        m = $opt.m,
+        fun1=$opt.fun1,
+        info = {
+            m: m,
+            id: id,
+            cid:id,
+            talk_id: TID,
+            xopenid: XID,
+            author: AU,
+        };
+        invoke({
+            data:info,
+            fun:function(d){
+                fun1(d);
+            }
+        })
 };
 Vue.component('component-wrap', {
     props: [''],
@@ -186,7 +207,14 @@ var app = new Vue({
     methods: {
         showChat: function(e) {
             this.changebarStyle = e;
-        }
+        },
+        retort: function() {
+            invoke({
+                data: {
+
+                }
+            })
+        },
     },
     router,
 });

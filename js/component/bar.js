@@ -2,7 +2,7 @@
  * @Author: 张驰阳
  * @Date:   2017-06-23 11:36:00
  * @Last Modified by:   张驰阳
- * @Last Modified time: 2017-06-27 15:40:47
+ * @Last Modified time: 2017-07-06 12:02:44
  */
 
 'use strict';
@@ -16,7 +16,6 @@ Vue.component('component-bar', {
             </div>',
     methods: {
         show: function(e) {
-            this.barstyle = e;
             this.$emit('sc', e);
         },
     },
